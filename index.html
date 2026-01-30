@@ -8,21 +8,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">Seonghak Hong</div>
-            <ul class="nav-menu">
-                <li><a href="#about">About</a></li>
-                <li><a href="#studies">Studies</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#awards">Awards</a></li>
-            </ul>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-brand">Seonghak Hong</h2>
         </div>
-    </nav>
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#studies" class="nav-link">Studies</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#awards" class="nav-link">Awards</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="https://github.com/SeonghakHong-Sch" target="_blank" class="sidebar-icon">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:your.email@example.com" class="sidebar-icon">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </aside>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title">안녕하세요, <span class="highlight">홍성학</span>입니다</h1>
@@ -37,8 +50,8 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
+        <!-- About Section -->
+        <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
@@ -67,10 +80,10 @@
                 </div>
             </div>
         </div>
-    </section>
+        </section>
 
-    <!-- Studies Section -->
-    <section id="studies" class="section section-gray">
+        <!-- Studies Section -->
+        <section id="studies" class="section section-gray">
         <div class="container">
             <h2 class="section-title">Studies</h2>
             <div class="studies-grid">
@@ -114,19 +127,18 @@
                         다솜 사람들과 함께
                     </p>
                     <div class="study-tags">
-                        <!-- <span class="tag"></span>
-                        <span class="tag">MongoDB</span>
-                        <span class="tag">Redis</span> -->
+                        <span class="tag">Linux System</span>
+                        <span class="tag">C</span>
                     </div>
                 </div>
 
                 <!-- 여기에 더 많은 study-card를 추가할 수 있습니다 -->
             </div>
         </div>
-    </section>
+        </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section">
+        <!-- Projects Section -->
+        <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
@@ -182,10 +194,10 @@
                 <!-- 여기에 더 많은 project-card를 추가할 수 있습니다 -->
             </div>
         </div>
-    </section>
+        </section>
 
-    <!-- Awards Section -->
-    <section id="awards" class="section section-gray">
+        <!-- Awards Section -->
+        <section id="awards" class="section section-gray">
         <div class="container">
             <h2 class="section-title">Awards & Achievements</h2>
             <div class="awards-timeline">
@@ -215,10 +227,10 @@
                 <!-- 여기에 더 많은 award-item을 추가할 수 있습니다 -->
             </div>
         </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <!-- Footer -->
+        <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Seonghak Hong. All rights reserved.</p>
             <div class="footer-links">
@@ -230,9 +242,10 @@
                 </a>
             </div>
         </div>
-    </footer>
+        </footer>
+    </main>
 
-    <!-- Smooth Scroll Script -->
+    <!-- Smooth Scroll & Active Menu Script -->
     <script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -248,17 +261,32 @@
             });
         });
 
-        // Navbar background on scroll
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = '0 2px 5px rgba(0,0,0,0.05)';
-            }
-        });
+        // Active menu on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveMenu() {
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (window.pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveMenu);
+        window.addEventListener('load', updateActiveMenu);
     </script>
 </body>
 </html>
